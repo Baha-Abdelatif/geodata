@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -13,6 +12,15 @@ function App() {
           throw new Error(`HTTP error: Status ${response.status}`);
         }
         const fetchedCountries = await response.json();
+        fetchedCountries.sort((a, b) => {
+          if (a.name.common < b.name.common) {
+            return -1;
+          } else if (a.name.common > b.name.common) {
+            return 1;
+          } else {
+            return 0;
+          }
+        });
         setCountries(fetchedCountries);
       } catch (err) {
         console.error(err.message);
