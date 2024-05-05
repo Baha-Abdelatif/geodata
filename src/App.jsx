@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import ListCard from "./components/ListCard";
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -36,15 +37,16 @@ function App() {
         <p className='text-gray-100 text-xl mb-8'>
           Select a card to reveal country's informations.
         </p>
+        {countries.length > 0 ? (
+          <ul className='grid min-[450px]:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 auto-rows-[200px] '>
+            {countries.map((country) => {
+              return <ListCard key={country.cca2} country={country} />;
+            })}
+          </ul>
+        ) : (
+          <h1>Loading Datas...</h1>
+        )}
       </div>
-      {countries.length > 0 &&
-        countries.map((country) => {
-          return (
-            <div key={country.cca2}>
-              <h3>{country.name.official}</h3>
-            </div>
-          );
-        })}
     </div>
   );
 }
